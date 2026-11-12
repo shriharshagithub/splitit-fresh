@@ -22,6 +22,10 @@ jobs:
       - run: npx expo export --platform web --output-dir dist
       - name: Deep links (/group/..., /join/...) open the app
         run: cp dist/index.html dist/404.html && touch dist/.nojekyll
+      - name: Turn on GitHub Pages for this repository (first run only)
+        uses: actions/configure-pages@v5
+        with: { enablement: true }
+        continue-on-error: true
       - uses: actions/upload-pages-artifact@v3
         with: { path: dist }
   deploy:

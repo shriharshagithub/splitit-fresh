@@ -3,7 +3,7 @@
 // Usage: node tests/e2e/serve.mjs dist 8099 &  node tests/e2e/flows.cjs <screenshot dir>
 const { chromium } = require('playwright');
 const path = require('path');
-const BASE = process.env.E2E_URL || 'http://localhost:8099/splitit-claude';
+const BASE = process.env.E2E_URL || 'http://localhost:8099/splitit-fresh';
 const OUT = process.argv[2] || '.';
 const run = Date.now().toString(36);
 const pw = `Passw0rd!${run}`;

@@ -1,10 +1,10 @@
-// Serves the exported web app at http://localhost:8099/splitit-claude/ like GitHub Pages (with SPA fallback).
+// Serves the exported web app at http://localhost:8099/splitit-fresh/ like GitHub Pages (with SPA fallback).
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { extname, join } from 'node:path';
 const root = process.argv[2] || 'dist';
 const port = Number(process.argv[3] || 8099);
-const BASE = '/splitit-claude';
+const BASE = '/splitit-fresh';
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.ico': 'image/x-icon', '.ttf': 'font/ttf', '.svg': 'image/svg+xml' };
 createServer(async (req, res) => {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);

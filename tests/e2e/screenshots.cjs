@@ -1,7 +1,7 @@
 // Screenshots of every screen (light and dark) using the demo account Priya. Usage: node tests/e2e/screenshots.cjs docs/design
 const { chromium } = require('playwright');
 const path = require('path');
-const BASE = process.env.E2E_URL || 'http://localhost:8099/splitit-claude';
+const BASE = process.env.E2E_URL || 'http://localhost:8099/splitit-fresh';
 const OUT = process.argv[2] || '.';
 (async () => {
   const b = await chromium.launch();

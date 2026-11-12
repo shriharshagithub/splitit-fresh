@@ -4,7 +4,7 @@ Split group expenses with friends in India, and settle up over UPI. SplitIt work
 
 | | |
 | --- | --- |
-| **Website** (any phone, including iPhone, and computers) | https://shriharshagithub.github.io/splitit-claude |
+| **Website** (any phone, including iPhone, and computers) | https://shriharshagithub.github.io/splitit-fresh |
 | **Android app** | GitHub → Actions → **Android APK** → latest run → Artifacts → `splitit-apk` (unzip, then open the `.apk` on the phone) |
 | **Backend** | Supabase project **Splitit-Claude-Code** (`ohawfftzgjuqwbilovmy`) |
 | **Plan, design, setup** | [docs/PLAN.md](docs/PLAN.md), [docs/DESIGN.md](docs/DESIGN.md), [docs/SETUP.md](docs/SETUP.md) |

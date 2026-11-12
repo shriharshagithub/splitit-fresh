@@ -65,7 +65,7 @@
     "experiments": {
       "typedRoutes": false,
       "reactCompiler": true,
-      "baseUrl": "/splitit-claude"
+      "baseUrl": "/splitit-fresh"
     }
   }
 }

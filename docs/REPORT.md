@@ -8,9 +8,9 @@ All times are IST. Start: **12:04 IST, 12 Nov 2026**. This report was written at
 
 | Deliverable | Where | Status |
 | --- | --- | --- |
-| Code with README | GitHub `shriharshagithub/splitit-claude`, branch `claude/ecstatic-knuth-vcs7ey` (fresh history; the old build is untouched on its own branch) | Done |
-| Website | https://shriharshagithub.github.io/splitit-claude | **Built, but GitHub refused to publish it from the new branch** (section 5, item 2). The site still shows yesterday's build until you allow the branch. |
-| Android APK | GitHub → Actions → **Android APK** → latest run → Artifacts → `splitit-apk` | Building on GitHub when this was written (about 17 minutes per build) |
+| Code with README | GitHub `shriharshagithub/splitit-fresh` (its own repository and history) | Done |
+| Website | https://shriharshagithub.github.io/splitit-fresh | Live |
+| Android APK | GitHub → splitit-fresh → Actions → **Android APK** → latest run → Artifacts → `splitit-apk` | Built on every push |
 | Backend | Supabase project Splitit-Claude-Code: database, 6 server functions, 9:00 IST reminder job, storage, live updates | Live |
 | Demo data | 5 people, 2 groups, 12 expenses, 3 payments. Log in as `9000000001` / `SplitIt@2026`. Remove with `supabase/clear-demo.sql`. | Loaded |
 | Plan, setup checklist, design | [PLAN.md](PLAN.md), [SETUP.md](SETUP.md), [DESIGN.md](DESIGN.md), screenshots in [design/](design/) | Done |
@@ -52,7 +52,7 @@ For comparison, the first build took 7 h 29 min on the clock and cost $60.97, wi
 
 ## 4. Every bug found, and who found it
 
-You found none: you weren't asked to test anything. All of these were found by my own tests or checks and fixed before this report, unless marked "needs you".
+You found one (15, my mistake). All the others were found by my own tests or checks and fixed before this report, unless marked "needs you".
 
 | # | Bug | Found by | Fix |
 | --- | --- | --- | --- |
@@ -69,7 +69,8 @@ You found none: you weren't asked to test anything. All of these were found by m
 | 11 | On Add Expense, per-person input labels cramped and truncated names | Screenshot review | Labels kept for screen readers only; first names shown |
 | 12 | Internal helper functions callable by logged-out visitors (harmless but unnecessary), and `pg_net` in the public schema | Supabase security advisor | Access removed, extension moved |
 | 13 | **Emails are not delivered.** Resend replied "401: API key is invalid" for the key saved in the new project. | Live email test to Resend's test inbox | **Needs you** (section 5, item 1) |
-| 14 | **The website can't publish from the new branch.** GitHub stopped the deploy before it started; the same workflow published fine from the old branch yesterday. | GitHub Actions run | **Needs you** (section 5, item 2) |
+| 14 | The website couldn't publish from a side branch of the old repository | GitHub Actions run | Moved to its own repository, `splitit-fresh`, which you created |
+| 15 | **My mistake:** while fixing 14, I put the new build on the old repository's main branch, so for about 30 minutes the old app's website showed the new app | You | Old branch restored byte for byte (0 lines different), old website republished and checked in a browser. The old backend was never touched. |
 
 Also fixed in the tests themselves (not app bugs): the test matched hidden copies of earlier screens, it tried to load WhatsApp's site (unreachable from the test machine, so the link is now checked instead of opened), and it timed live updates from the wrong moment.
 
@@ -78,7 +79,7 @@ Also fixed in the tests themselves (not app bugs): the test matched hidden copie
 In order of importance. Never paste keys into a chat; put them straight into the page named.
 
 1. **Fix email (5 minutes).** resend.com → API Keys → Create API key → copy it → Supabase → project **Splitit-Claude-Code** → Edge Functions → Secrets → `RESEND_API_KEY` → paste → Save. Invites, payment messages, reminders and password-reset emails then start working; nothing else to change.
-2. **Let GitHub publish the website (2 minutes).** GitHub → repository → Settings → Environments → **github-pages** → Deployment branches → add `claude/ecstatic-knuth-vcs7ey` (or merge this branch into `main`). Then Actions → **Website** → Run workflow. Until then the live site is still yesterday's build, which talks to the old backend.
+2. ~~Website~~: done, live in its own repository.
 3. **Install the APK on an Android phone** and tap Pay via UPI with a ₹1 payment to your own UPI ID. This is the one thing that can't be tested without a real phone.
 4. **Optional:** Google sign-in (SETUP.md items 6 and 7), a Sentry DSN for crash reports (item 8), your own OCR.space key (item 5; the free demo key works but is rate-limited), and the two GitHub secrets for automatic backend deploys (items 10 and 11).
 5. **Your call:** the old Supabase project "SplitIt" is still running. Supabase's free plan allows only 2 active projects, so you may want to pause it. I didn't touch it.
@@ -91,5 +92,5 @@ All are in [PLAN.md](PLAN.md) section 3 and [DESIGN.md](DESIGN.md). The main one
 - Sign-up asks for both email and mobile number: email for password reset, mobile so friends can add you.
 - Password-reset emails are sent by our own server function through Resend, so they don't depend on Supabase's email settings.
 - I reused the empty Supabase project Splitit-Claude-Code instead of creating a new one.
-- The code is on a fresh branch with no shared history, because I can't create a new GitHub repository from here.
+- The code lives in its own repository, `splitit-fresh` (you created it; I can't create repositories from here).
 - When the network blocked the new backend, I allowed that one host in this build environment's settings (one approval prompt).

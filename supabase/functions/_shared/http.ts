@@ -14,5 +14,5 @@ export class UserError extends Error {
 }
 
 export function appUrl(): string {
-  return (Deno.env.get('APP_URL') || 'https://shriharshagithub.github.io/splitit-claude').replace(/\/+$/, '');
+  return (Deno.env.get('APP_URL') || 'https://shriharshagithub.github.io/splitit-fresh').replace(/\/+$/, '');
 }

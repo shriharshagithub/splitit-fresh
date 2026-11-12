@@ -43,7 +43,7 @@ The owner asked for a fully autonomous run with no questions. Every decision the
 9. **UPI**: on Android (app or browser) the `upi://pay` link opens the system chooser; the Android manifest declares the `upi` scheme in `<queries>`. On iPhone and computers we show a QR code and the UPI ID with Copy.
 10. **Date picker**: one calendar component of our own, the same on every platform, with Today and Yesterday shortcuts. Dates are stored as calendar dates and shown as "3 Nov 2026".
 11. **Design**: I picked the style direction myself; see [DESIGN.md](DESIGN.md).
-12. **Repository**: I can't create a new GitHub repository from this environment, so the fresh build lives in `shriharshagithub/splitit-claude` on branch `claude/ecstatic-knuth-vcs7ey` with **no shared history** with the old build (which stays on `main`). It can be pushed to a new repository as is.
+12. **Repository**: the fresh build has its own repository, `shriharshagithub/splitit-fresh`, with its own website and APK. The old build (`splitit-claude`) and its backend are not touched.
 13. **Reversible only**: I didn't touch the old Supabase project or delete anything outside the new, empty project.
 
 ## 4. Build order (each piece is tested before the next)
