@@ -1,16 +1,16 @@
-# Publishes the website on GitHub Pages: works on any phone (including iPhone) and computer.
+# Publishes the website on GitHub Pages (from the gh-pages branch): works on any phone, including iPhone, and computers.
+# Live at https://shriharshagithub.github.io/splitit-fresh
 name: Website
 on:
   push:
+    branches: [main]
     paths-ignore: ['docs/**', '**.md', 'supabase/**', 'tests/**']
   workflow_dispatch:
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 concurrency: { group: pages, cancel-in-progress: false }
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     env:
       EXPO_PUBLIC_SENTRY_DSN: ${{ vars.SENTRY_DSN }}
@@ -22,12 +22,10 @@ jobs:
       - run: npx expo export --platform web --output-dir dist
       - name: Deep links (/group/..., /join/...) open the app
         run: cp dist/index.html dist/404.html && touch dist/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
-        with: { path: dist }
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment: { name: github-pages, url: '${{ steps.d.outputs.page_url }}' }
-    steps:
-      - id: d
-        uses: actions/deploy-pages@v4
+      - name: Publish to the gh-pages branch
+        working-directory: dist
+        run: |
+          git init -q -b gh-pages
+          git add -A
+          git -c user.name="github-actions" -c user.email="github-actions@users.noreply.github.com" commit -qm "Publish website from ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}" gh-pages
